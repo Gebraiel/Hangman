@@ -247,7 +247,7 @@
                         } 
                     }
                     if(isFinished()){
-                        createPopUp(word,meaning,'green');
+                        createPopUp(word,meaning,'#0ea70e');
                         resetGame();
                     }
                 }else{
@@ -266,7 +266,7 @@
                 word = object['word'].toLowerCase();
                 meaning = object['meaning'];
                 if(word === ""){
-                    createPopUp("Thank You!","Words Finished",'green');
+                    createPopUp("Thank You!","Words Finished",'#0ea70e');
                     disableAllLetters();
                     pickedWords.clear();
 
@@ -301,7 +301,7 @@
         }
         function gameOver(){
             disableAllLetters();
-            createPopUp("Oops","Game Over!",'red');
+            createPopUp("Oops","Game Over!",'#c30e0e');
         };
         function disableAllLetters(){
             letters.forEach((e)=>{

@@ -3,7 +3,7 @@
   function createPopUp(word,meaning,color){
     let popup = document.createElement('div');
     popup.className = 'popup';
-  
+    popup.style.backgroundColor = color;
     let message = document.createElement('p');
     message.className = 'message';
     let h1 = document.createElement('h1');
@@ -18,7 +18,6 @@
     let closeButton = document.createElement('button');
 
     closeButton.setAttribute('class','close-button');
-    closeButton.style.backgroundColor = color;
     let closeButtonTextNode = document.createTextNode("X");
     closeButton.appendChild(closeButtonTextNode);
   

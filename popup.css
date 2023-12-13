@@ -10,7 +10,6 @@
     left:50%;
     top:50%;
     transform: translate(-50%,0);
-    background-color: #f5f3f4;
     width:400px;
     font-family: "Coptic", sans-serif;
     font-weight: 300;            
@@ -21,7 +20,7 @@
     padding:50px 0px;
     z-index: 1;
     border-color: #e0dedf;
-
+    color:white;
     animation:FadeUp 0.5s ease forwards;
   }
   @keyframes FadeUp{
@@ -45,6 +44,7 @@
     margin-bottom:20px;
   }
   .close-button{
+    background-color: red;
     border-radius: 50%;
     width: 30px;
     height: 30px;
