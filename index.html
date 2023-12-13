@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="./popup.css" rel = "stylesheet">
+    <style>
+
+        @font-face {
+            font-family: "Coptic";
+            src: url('./Athanasuis-Plain.ttf');
+        }
+        *{
+            padding:0;
+            margin:0;
+
+        }
+        body{
+            font-family: 'Coptic', sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+        }
+        .container{
+            width:90%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #ececec;
+            padding:50px;
+        }
+        .keyboard{
+            order:2;
+            display: grid;
+            grid-template-columns: repeat(8,40px);
+            grid-gap:5px;
+        }
+        .letter{
+            width:40px;
+            height:30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #009688;
+            opacity: 1;
+            color:white;
+            cursor:pointer !important;
+        }
+        .clicked{
+            opacity: 0.2;
+            cursor:default !important;
+        }
+        .hangman{
+            order: 0;
+            position: relative;
+            width:200px;
+            border-left:5px solid white;
+            height: 200px;
+        }
+
+        .rope{
+            height:10px;
+            width:100px;
+            border-right:5px solid white;
+            border-top:5px solid white;
+            position: absolute;
+            left:0;
+            top:0px;        
+        }
+        .circle{
+            width:65px;
+            height: 63px;
+            border:2px dashed white;
+            position: absolute;
+            left:calc(0px + 68px);
+            top:12px;
+            border-radius: 50%;
+        }
+        .head{
+            width:50px;
+            height: 50px;
+            border:2px solid white;
+            border-radius: 50%;
+            position: absolute;
+            left:calc(0px + 75px);
+            top:18px;
+        }
+        .stomach{
+            border:2px solid white;
+            width: fit-content;
+            height:100px;
+            position: absolute;
+            left:calc(25px + 75px);
+            top:70px;
+        }
+        .left-arm{
+            border:2px solid white;
+            width: fit-content;
+            height:50px;
+            position: absolute;
+            top:58px;
+            left:calc(5px + 75px);
+            transform: rotate(-45deg);
+        }
+        .right-arm{
+            border:2px solid white;
+            width: fit-content;
+            height:50px;
+            position: absolute;
+            top:59px;
+            left:calc(43px + 75px);
+            transform: rotate(45deg);
+        }
+        .left-leg{
+            border:2px solid white;
+            width: fit-content;
+            height:50px;
+            position: absolute;
+            bottom:-18px;
+            left:calc(5px + 75px);
+            transform: rotate(45deg);
+        }
+        .right-leg{
+            border:2px solid white;
+            width: fit-content;
+            height:50px;
+            position: absolute;
+            bottom:-18px;
+            left:calc(43px + 75px);
+            transform: rotate(-45deg);
+        }
+        .line{
+            border:2px solid white;
+            width:30px;
+            position: absolute;
+            bottom:0;
+            left:-20px;
+        }
+        .word{
+            width:calc(4 * 40px + 15px);
+            display: flex;
+            justify-content: space-between;
+            order:1;
+        }
+        .word .letter:first-child{
+            text-transform: uppercase;
+        }
+        .word div{
+            background-color: white;
+            border-bottom:1px solid black;
+            color:black;
+            cursor: default !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        
+        <div class="hangman">
+            <div class="circle"></div>
+            <div class="head"></div>
+            <div class="stomach"></div>
+            <div class="left-arm"></div>
+            <div class="right-arm"></div>
+            <div class="left-leg"></div>
+            <div class="right-leg"></div>
+            <div class="rope"></div>
+            <div class="line"></div>
+        </div>
+        <div class="keyboard">
+            <a class="letter">A</a>
+            <a class="letter">B</a>
+            <a class="letter">G</a>
+            <a class="letter">D</a>
+            <a class="letter">E</a>
+            <a class="letter"><</a>
+            <a class="letter">Z</a>
+            <a class="letter">H</a>
+            <a class="letter">Q</a>
+            <a class="letter">I</a>
+            <a class="letter">K</a>
+            <a class="letter">L</a>
+            <a class="letter">M</a>
+            <a class="letter">N</a>
+            <a class="letter">{</a>
+            <a class="letter">O</a>
+            <a class="letter">P</a>
+            <a class="letter">R</a>
+            <a class="letter">C</a>
+            <a class="letter">T</a>
+            <a class="letter">U</a>
+            <a class="letter">V</a>
+            <a class="letter">X</a>
+            <a class="letter">Y</a>
+            <a class="letter">W</a>
+            <a class="letter">}</a>
+            <a class="letter">F</a>
+            <a class="letter">"</a>
+            <a class="letter">|</a>
+            <a class="letter">J</a>
+            <a class="letter">S</a>
+            <a class="letter">:</a>
+        </div>
+
+    </div>
+    <script src="./popup.js"></script>
+    <script>
+        let container = document.querySelector('.container');
+        container.app
+        let hangman = document.querySelector('.hangman');
+        let letters = document.querySelectorAll('.letter');
+        let word = "";
+        let meaning = "";
+        let pickedWords = new Set();
+        let wordElement = null;
+        let wrongAnswerCount = 0;
+        let parts = ["line","pale","rope","circle","head","stomach","right-arm","left-arm","right-leg","left-leg"];
+        window.onload = function(){
+            createWordElement();
+        }
+        
+        letters.forEach((e)=>e.addEventListener('click',(event)=>{
+            event.preventDefault();
+            
+            let index = word.indexOf(e.textContent.toLowerCase());
+            if(!e.classList.contains('clicked')){
+                e.classList.add('clicked');
+                if(index >= 0 ){
+                    for(let i = 0 ;i<word.length ;i++){
+                        if(word[i] === e.textContent.toLowerCase() ){
+                            wordElement.children[i].textContent = word[i];
+                        } 
+                    }
+                    if(isFinished()){
+                        createPopUp(word,meaning);
+                        resetGame();
+                    }
+                }else{
+                    wrongAnswerCount++;
+                    showPart();
+                }
+            }
+            
+        }));
+        function createWordElement(){
+            wordElement = document.createElement('div');
+            wordElement.classList.add('word');
+            container.append(wordElement);
+            let wordPromise = getWord();
+            wordPromise.then((object)=>{
+                word = object['word'].toLowerCase();
+                meaning = object['meaning'];
+                if(word === ""){
+                    createPopUp("Thank You!","Words Finished");
+                    disableAllLetters();
+                    pickedWords.clear();
+
+                    return;
+                }
+                wordElement.style.width = `${word.length * 40 + 15}px` ;
+                for(let i in word)
+                {
+                    console.log(i);
+                    let child = document.createElement('div');
+                    child.classList.add('letter');
+                    wordElement.append(child);
+                }
+            });
+        }
+        function deleteWordElement(){
+            wordElement.remove();
+        }
+        function showPart(){
+            let part = parts[wrongAnswerCount-1];
+                if(part === 'pale')
+                {
+                    hangman.style.borderLeftColor ='black';
+                }
+                else{
+                    document.querySelector(`.${part}`).style.borderColor = 'black';
+                }
+            if(wrongAnswerCount === 10){
+                gameOver();
+                resetGame();
+            }
+        }
+        function gameOver(){
+            disableAllLetters();
+            createPopUp("Oops","Game Over!");
+        };
+        function disableAllLetters(){
+            letters.forEach((e)=>{
+                e.classList.add('clicked');
+            })
+        }
+        function isFinished(){
+            for(let letter of wordElement.children)           
+            {
+                if(letter.textContent ===""){
+                    return false;
+                }
+            }
+            return true;
+        }
+        async function getWord(){
+            let response = await fetch('./words.json');
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            let words = await response.json();
+            let length = words.length;
+            if(pickedWords.size === length){
+                return {'word':"",'meaning':""};
+            }
+            else{
+                let randomWordIndex = Math.floor(Math.random() * length);
+                let randomWord = words[randomWordIndex];
+                while(pickedWords.has(randomWord['word'])){
+                    randomWordIndex = Math.floor(Math.random() * length);
+                    randomWord = words[randomWordIndex];
+                }
+                pickedWords.add(randomWord['word']);
+                console.log(randomWord);
+                return randomWord;
+            }
+        }
+
+        function resetGame(){
+
+            letters.forEach((letter)=>{
+                letter.classList.remove('clicked');
+            })
+
+            for(let part of parts){
+                if(part === 'pale')
+                {
+                    hangman.style.borderLeftColor ='white';
+                }
+                else{
+                    document.querySelector(`.${part}`).style.borderColor = 'white';
+
+                }
+            }
+            deleteWordElement();
+            createWordElement();
+        }
+    </script>
+</body>
+
+</html>
