@@ -1,6 +1,6 @@
 
 
-  function createPopUp(word,meaning){
+  function createPopUp(word,meaning,color){
     let popup = document.createElement('div');
     popup.className = 'popup';
   
@@ -16,7 +16,9 @@
     message.appendChild(innerP);
   
     let closeButton = document.createElement('button');
+
     closeButton.setAttribute('class','close-button');
+    closeButton.style.backgroundColor = color;
     let closeButtonTextNode = document.createTextNode("X");
     closeButton.appendChild(closeButtonTextNode);
   
