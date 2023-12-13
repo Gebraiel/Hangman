@@ -4,6 +4,7 @@
     let popup = document.createElement('div');
     popup.className = 'popup';
     popup.style.backgroundColor = color;
+    
     let message = document.createElement('p');
     message.className = 'message';
     let h1 = document.createElement('h1');
