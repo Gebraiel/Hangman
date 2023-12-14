@@ -309,6 +309,7 @@
                     document.querySelector(`.${part}`).style.borderColor = 'red';
                 }
             if(wrongAnswerCount === 10){
+                wrongAudio.pause();
                 gameOverAudio.currentTime = 0;
                 gameOverAudio.play();
                 gameOver();
