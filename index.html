@@ -145,7 +145,6 @@
             left: -25px;
         }
         .word{
-            width:calc(4 * 40px + 15px);
             display: flex;
             justify-content: space-between;
             order:1;
@@ -159,12 +158,53 @@
             color:black;
             cursor: default !important;
         }
+        .word div span{
+            opacity: 0;
+            transition : opacity 0.5s ease;
+        }
         .word-container{
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             height: 375px;
             align-items: center;
+        }
+        @media(max-width:1105px){
+            .container{
+                flex-direction: column;
+                height: 650px;
+            }
+        }
+        @media(max-width:800px){
+            .container{
+                height: 550px;
+            }
+            .word-container{
+                height: 225px;
+            }
+            .letter{
+                width:50px;
+                height: 40px;
+                font-size: 20px;
+            }
+            .keyboard{
+                grid-template-columns: repeat(8,50px);
+            }
+        }
+        @media(max-width:500px){
+            .container{
+                height: 650px;
+            }
+            .word-container{
+                height:401px;
+            }
+            .keyboard{
+                grid-template-columns: repeat(4,50px);
+            }
+            .hangman{
+                top: -40px;
+                left: 20px;
+            }
         }
     </style>
 </head>
@@ -234,11 +274,18 @@
         let pickedWords = new Set();
         let wordElement = null;
         let wrongAnswerCount = 0;
+        let letterWidth = 0;
         let parts = ["line","pale","rope","circle","head","stomach","right-arm","left-arm","right-leg","left-leg"];
         window.onload = function(){
             createWordElement();
+            letterWidth = letters[0].offsetWidth;
         }
-        
+
+        window.addEventListener('resize',()=>{
+            letterWidth  = letters[0].offsetWidth;
+            console.log(letterWidth);
+        })
+
         letters.forEach((e)=>e.addEventListener('click',(event)=>{
             event.preventDefault();
             
@@ -251,7 +298,8 @@
                     correctAudio.play();
                     for(let i = 0 ;i<word.length ;i++){
                         if(word[i] === e.textContent.toLowerCase() ){
-                            wordElement.children[i].textContent = word[i];
+                            wordElement.children[i].children[0].textContent = word[i];
+                            wordElement.children[i].children[0].style.opacity = 1;
                         } 
                     }
                     if(isFinished()){
@@ -286,13 +334,15 @@
 
                     return;
                 }
-                wordElement.style.width = `${word.length * 80 + 15}px` ;
+                wordElement.style.width = `${word.length * letterWidth + 15}px` ;
                 for(let i in word)
                 {
                     console.log(i);
-                    let child = document.createElement('div');
-                    child.classList.add('letter');
-                    wordElement.append(child);
+                    let letterContainer = document.createElement('div');
+                    let span = document.createElement('span');
+                    letterContainer.append(span);
+                    letterContainer.classList.add('letter');
+                    wordElement.append(letterContainer);
                 }
             });
         }
@@ -328,7 +378,7 @@
         function isFinished(){
             for(let letter of wordElement.children)           
             {
-                if(letter.textContent ===""){
+                if(letter.textContent === ""){
                     return false;
                 }
             }
