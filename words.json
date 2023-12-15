@@ -4,19 +4,54 @@
         "meaning":"لبن"
     },
     {
-        "word":"Aloli",
-        "meaning":"عنب"
+        "word":"Lac",
+        "meaning":"لسان"
     },
+    {
+        "word":"Anzhb",
+        "meaning":"مدرسة"
+    },
+    {
+        "word":"Cwni",
+        "meaning":"اخت"
+    },
+    {
+        "word":"Ka|i",
+        "meaning":"ارض"
+    }
+    ,
     {
         "word":"Aggeloc",
         "meaning":"ملاك"
-    },
+    }
+    ,
     {
-        "word":"Agaph",
-        "meaning":"محبه"
-    },
+        "word":":mi",
+        "meaning":"قرية"
+    }
+    ,
     {
-        "word":"Eua",
-        "meaning":"حواء"
+        "word":"Thb",
+        "meaning":"اصبع"
+    }
+    ,
+    {
+        "word":"Zenzen",
+        "meaning":"سحليه"
+    }
+    ,
+    {
+        "word":"Ma}qw:",
+        "meaning":"مشط"
+    }
+    ,
+    {
+        "word":"Kouji",
+        "meaning":"صغير"
+    }
+    ,
+    {
+        "word":"Xere",
+        "meaning":"سلام"
     }
 ]
