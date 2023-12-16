@@ -210,7 +210,6 @@
 </head>
 <body>
     <div class="container">
-        
         <div class="hangman">
             <div class="circle"></div>
             <div class="head"></div>
@@ -328,7 +327,7 @@
                 word = object['word'].toLowerCase();
                 meaning = object['meaning'];
                 if(word === ""){
-                    createPopUp("Thank You!","Words Finished",'#0ea70e');
+                    createPopUp("}ep` |mot","شطبنا",'#0ea70e');
                     disableAllLetters();
                     pickedWords.clear();
 
@@ -368,7 +367,7 @@
         }
         function gameOver(){
             disableAllLetters();
-            createPopUp("Oops","Game Over!",'#c30e0e');
+            createPopUp(word,meaning,'#c30e0e');
         };
         function disableAllLetters(){
             letters.forEach((e)=>{
